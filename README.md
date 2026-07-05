@@ -33,7 +33,7 @@ Each format is scored 1-5 on five axes:
 
 Composite score is a weighted average (weights in `app.py`). Swap in real
 market-level data (time-to-lock, prediction volume, resolution rate) and the
-ranking updates automatically — no code changes needed, just replace the CSV.
+ranking updates automatically, no code changes needed, just replace the CSV.
 
 ## Honest scope note
 The current dataset is directional, based on public content patterns, not
