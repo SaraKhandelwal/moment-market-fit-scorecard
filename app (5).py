@@ -59,11 +59,29 @@ with st.container(border=True):
         "creators or formats to prioritize next?"
     )
 
+with st.expander("Where this data comes from (read before judging the scores)"):
+    st.markdown(
+        "The six formats below are content categories I picked because they map to what "
+        "a live prediction market could plausibly be built around — not pulled from CRSH's "
+        "actual event data, which I don't have. Each is scored 1 to 5 on five axes based on "
+        "my own judgment, informed by the research in the Evidence base tab (completion "
+        "rate benchmarks, information gap theory, the Zeigarnik effect).\n\n"
+        "That means: the *axes* are grounded in real research. The *scores* on any given "
+        "format are directional estimates, meant to be replaced with real numbers the "
+        "moment there's access to them. Use the Score your own tab to test formats I "
+        "haven't thought of, and the Ranking tab's sliders to see how the picture changes "
+        "if you weight the axes differently than I did."
+    )
+
 tab1, tab2, tab3, tab4 = st.tabs(["Ranking", "Format profile", "Score your own", "Evidence base"])
 
 with tab1:
     st.markdown("#### Adjust how much each axis matters")
-    st.caption("Drag to reweight the model — the ranking updates live below.")
+    st.caption(
+        "Drag to reweight the model — the ranking updates live below. Use this if you "
+        "think, say, fanbase precedent matters more than I assumed, and want to see who "
+        "moves up or down as a result."
+    )
 
     weights = {}
     cols = st.columns(5)
@@ -110,7 +128,12 @@ with tab2:
     ) if st.session_state.custom_rows else base_df
 
     st.markdown("#### Compare format shapes, not just scores")
-    st.caption("Two formats can score similarly but win for different reasons — this shows why.")
+    st.caption(
+        "Two formats can land on the same overall score for completely different reasons — "
+        "one might win on emotional stakes but lag on clean binary outcomes, another the "
+        "reverse. Pick 2-3 formats below to see which specific axis is driving (or "
+        "dragging) each one, not just the final number."
+    )
 
     picked = st.multiselect(
         "Pick formats to compare",
@@ -137,6 +160,12 @@ with tab2:
 
 with tab3:
     st.markdown("#### Got a format in mind? Score it and see where it lands.")
+    st.caption(
+        "Have a market idea I didn't list? Rate it on the same five axes and it drops "
+        "straight into the Ranking tab next to the rest, weighted the same way. This is "
+        "the fastest way to sanity-check a new idea against the rubric before building "
+        "anything real around it."
+    )
     with st.form("new_format"):
         name = st.text_input("Format name", placeholder="e.g. Live trivia buzzer-beater")
         category = st.text_input("Category", placeholder="e.g. Game show style")
