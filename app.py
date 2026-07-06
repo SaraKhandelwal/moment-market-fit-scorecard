@@ -55,7 +55,7 @@ st.caption(
 with st.container(border=True):
     st.markdown(
         "**The question:** which kinds of live moments are predictable-but-uncertain "
-        "enough to make a good prediction market and what does that say about which "
+        "enough to make a good prediction market — and what does that say about which "
         "creators or formats to prioritize next?"
     )
 
@@ -63,7 +63,7 @@ tab1, tab2, tab3 = st.tabs(["Ranking", "Format profile", "Score your own"])
 
 with tab1:
     st.markdown("#### Adjust how much each axis matters")
-    st.caption("Drag to reweight the model, the ranking updates live below.")
+    st.caption("Drag to reweight the model — the ranking updates live below.")
 
     weights = {}
     cols = st.columns(5)
@@ -110,7 +110,7 @@ with tab2:
     ) if st.session_state.custom_rows else base_df
 
     st.markdown("#### Compare format shapes, not just scores")
-    st.caption("Two formats can score similarly but win for different reasons, this shows why.")
+    st.caption("Two formats can score similarly but win for different reasons — this shows why.")
 
     picked = st.multiselect(
         "Pick formats to compare",
@@ -164,7 +164,7 @@ with tab3:
                 "notes": notes,
             }
             st.session_state.custom_rows.append(new_row)
-            st.success(f"Added '{name}' : check the Ranking tab to see where it lands.")
+            st.success(f"Added '{name}' — check the Ranking tab to see where it lands.")
 
     if st.session_state.custom_rows:
         st.markdown("##### Your added formats")
@@ -174,9 +174,53 @@ with tab3:
             st.rerun()
 
 st.divider()
+
+st.markdown("### If I were CRSH: what I'd test next")
+st.caption(
+    "Three patterns worth checking against real event data — framed as tests, not claims, "
+    "since I only have public engagement patterns to go on right now."
+)
+
+with st.container(border=True):
+    st.markdown("**1. Time-to-reveal optimization**")
+    st.markdown(
+        "Shorter reveal windows likely tighten the feedback loop between predicting and "
+        "seeing the result, which may drive more repeat participation even if individual "
+        "bets are smaller.\n\n"
+        "*Test:* compare markets under 3 min, 3 to 10 min, and 10+ min. Measure trades per "
+        "user and repeat participation rate in each bucket."
+    )
+
+with st.container(border=True):
+    st.markdown("**2. Emotional stakes vs binary clarity**")
+    st.markdown(
+        "Binary clarity likely gets people to place a first bet, but emotionally charged "
+        "formats (eliminations, high-stakes reveals) may be what keeps them coming back, "
+        "even when the outcome structure is less clean.\n\n"
+        "*Test:* compare an esports-style structured format against an IRL/emotional format "
+        "on engagement depth and volatility, not just initial trade volume."
+    )
+
+with st.container(border=True):
+    st.markdown("**3. The predictability sweet spot**")
+    st.markdown(
+        "Highly predictable events probably reduce the incentive to trade, since the "
+        "outcome feels obvious. Fully chaotic ones may reduce confidence to trade at all. "
+        "The highest activity is likely in the middle band.\n\n"
+        "*Test:* bucket past markets by implied odds distribution and check where trading "
+        "volume actually peaks."
+    )
+
+st.markdown(
+    "**Bottom line:** based on public engagement patterns, I'd prioritize short-duration, "
+    "high-emotion formats first, but I'd want to validate all three of these against real "
+    "CRSH data before treating any of them as settled."
+)
+
+st.divider()
 st.markdown(
     "**How this was built:** scores are directional, based on public engagement patterns "
-    "across TikTok/YouTube Shorts and Twitch clip culture, not CRSH's internal event or "
+    "across TikTok/YouTube Shorts and Twitch clip culture — not CRSH's internal event or "
     "conversion data. Swap `moment_scores.csv` for real market-level metrics "
     "(time-to-lock, prediction volume, resolution rate by format) and everything above "
     "updates automatically. See `fetch_youtube_data.py` for a starting point on pulling "
